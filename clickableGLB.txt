@@ -1,0 +1,23 @@
+async function loadModel() {
+    // Load the glTF model
+    let entity = await scene.primitives.add(Cesium.Model.fromGltf({
+        url: 'amusement.glb',
+        id : 'mymodeltest',
+        modelMatrix: Cesium.Transforms.eastNorthUpToFixedFrame(Cesium.Cartesian3.fromDegrees(10.226199733371558, 36.832286889355274, -5.0)),
+        scale: 7.0
+    }));
+
+
+    viewer.screenSpaceEventHandler.setInputAction(function (click) {
+        let pickedObject = viewer.scene.pick(click.position);
+
+        if (Cesium.defined(pickedObject) && pickedObject.id === entity.id) {
+            console.log('Model clicked!');
+            alert('this is dahdah')
+        }
+    }, Cesium.ScreenSpaceEventType.RIGHT_CLICK);
+}
+
+
+
+setTimeout(loadModel,3000)
